@@ -5,20 +5,20 @@ services:
     image: ghost:alpine
     restart: unless-stopped
     depends_on:
-      - db
+      - ghost_db
     ports:
       - 127.0.0.1:49429:2368
     environment:
       url: https://approaching.it
       database__client: mysql
-      database__connection__host: db
+      database__connection__host: ghost_db
       database__connection__user: root
       database__connection__password: ${DB_PASSWORD}
       database__connection__database: ghost
     volumes:
       - /opt/ghost/content:/var/lib/ghost/content
 
-  db:
+  ghost_db:
     image: mariadb:10.4
     restart: unless-stopped
     environment:
